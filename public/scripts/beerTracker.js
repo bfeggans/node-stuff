@@ -1,11 +1,13 @@
 (function() {
   var button = document.getElementById('addBeerButton');
   var beerList = document.getElementById('beerList');
+  //todo: find out where to put these transformable env variables
+  var apiURI = 'https://shielded-coast-63607.herokuapp.com';
 
   document.addEventListener('DOMContentLoaded', getBeerList);
   beerList.addEventListener('click', function(evt) {
     if (evt.target.className === 'removeBeer') {
-      var ajax = liteAjax('DELETE', `http://localhost:5000/beerTracker/api/deleteBeer/${evt.target.parentNode.id}`);
+      var ajax = liteAjax('DELETE', `${apiURI}/beerTracker/api/deleteBeer/${evt.target.parentNode.id}`);
       ajax({successCallback: function(status) {
         console.log(status)
       }});
@@ -13,7 +15,7 @@
   });
 
   button.addEventListener('click', function() {
-    var ajax = liteAjax('POST', 'http://localhost:5000/beerTracker/api/addBeer');
+    var ajax = liteAjax('POST', '${apiURI}/beerTracker/api/addBeer');
     var postObj = JSON.stringify({
       name: document.getElementById('beerName').value,
       rating: document.getElementById('beerRating').value
@@ -28,7 +30,7 @@
   });
 
   function getBeerList() {
-    var ajax = liteAjax('GET', 'http://localhost:5000/beerTracker/api/getBeers');
+    var ajax = liteAjax('GET', '${apiURI}/beerTracker/api/getBeers');
 
     ajax({
       successCallback: function(data) {
