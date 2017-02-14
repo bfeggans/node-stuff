@@ -15,7 +15,7 @@
   });
 
   button.addEventListener('click', function() {
-    var ajax = liteAjax('POST', '${apiURI}/beerTracker/api/addBeer');
+    var ajax = liteAjax('POST', `${apiURI}/beerTracker/api/addBeer`);
     var postObj = JSON.stringify({
       name: document.getElementById('beerName').value,
       rating: document.getElementById('beerRating').value
@@ -30,7 +30,7 @@
   });
 
   function getBeerList() {
-    var ajax = liteAjax('GET', '${apiURI}/beerTracker/api/getBeers');
+    var ajax = liteAjax('GET', `${apiURI}/beerTracker/api/getBeers`);
 
     ajax({
       successCallback: function(data) {
