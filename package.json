@@ -1,6 +1,6 @@
 {
   "name": "blakesnodeplayground",
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "Blake's Node playground",
   "engines": {
     "node": "5.9.1"
