@@ -11,7 +11,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/api/addBeer', function(req, res) {
-    console.log(bodyParser);
     var newBeer = req.body;
     beers.add(newBeer);
 
@@ -33,6 +32,16 @@ router.delete('/api/deleteBeer/:id', function(req, res) {
     var returnValue = beers.delete(objectId, function() {
         res.json(true);
     });
+});
+
+router.put('/api/updateBeer/:id', function(req, res) {
+  var updatedBeer = req.body;
+  var objectId = req.params.id;
+
+  beers.update(objectId, updatedBeer);
+
+  res.writeHead(200);
+  res.end(JSON.stringify(updatedBeer));
 });
 
 module.exports = router;

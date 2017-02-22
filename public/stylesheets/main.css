@@ -1,27 +1,54 @@
-.jumbotron {
-  background: #532F8C;
-  color: white;
-  padding-bottom: 80px; }
-  .jumbotron .btn-primary {
-    background: #845ac7;
-    border-color: #845ac7; }
-    .jumbotron .btn-primary:hover {
-      background: #7646c1; }
-  .jumbotron p {
-    color: #d9ccee;
-    max-width: 75%;
-    margin: 1em auto 2em; }
-  .navbar + .jumbotron {
-    margin-top: -20px; }
-  .jumbotron .lang-logo {
-    display: block;
-    background: #B01302;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    border: 2px solid white; }
-    .jumbotron .lang-logo img {
-      max-width: 100%; }
+#newBeerForm {
+  margin-bottom: 15px;
+}
 
+#beerList {
+  list-style-type: none;
+}
+
+#beerList div {
+  background: #ececec;
+  margin: 0 10px 20px 0;
+  padding: 20px 15px;
+  display: inline-block;
+  position: relative;
+}
+
+.tracked-beer-name {
+  border: none;
+  background: #e0e0e0;
+  cursor: pointer;
+  font-size: 18px;
+  padding-left: 8px;
+  border-radius: 5px;
+  margin: 0 5px 10px 0;
+}
+
+.remove-beer {
+  text-align: right;
+  margin-right: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+a.remove-beer {
+  color: #333;
+}
+
+.btn {
+  padding: 2px 4px;
+}
+
+.update-beer {
+  margin-left: 10px;
+}
+
+.rating-text {
+  color: #fafafa;
+}
+
+.fa-star {
+  color: goldenrod;
+}

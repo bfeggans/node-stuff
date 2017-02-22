@@ -3,30 +3,53 @@
   var beerList = document.getElementById('beerList');
   //todo: find out where to put these transformable env variables
   var apiURI = 'https://shielded-coast-63607.herokuapp.com';
+  // var apiURI = 'http://localhost:5000';
 
   document.addEventListener('DOMContentLoaded', getBeerList);
   beerList.addEventListener('click', function(evt) {
-    if (evt.target.className === 'removeBeer') {
-      var ajax = liteAjax('DELETE', `${apiURI}/beerTracker/api/deleteBeer/${evt.target.parentNode.id}`);
+    console.log(evt);
+    if (evt.target.className.indexOf('fa-close') > -1) {
+      const ajax = liteAjax('DELETE', `${apiURI}/beerTracker/api/deleteBeer/${evt.target.parentNode.parentNode.id}`);
       ajax({successCallback: function(status) {
         console.log(status)
+      }});
+    } else if (evt.target.className.indexOf('update-beer') > -1) {
+      const ajax = liteAjax('PUT', `${apiURI}/beerTracker/api/updateBeer/${evt.target.parentNode.id}`);
+      const beerName = evt.target.parentNode.getElementsByTagName('input')[0].value;
+      const postObj = JSON.stringify({
+        name: beerName
+      });
+
+      ajax({
+        postObj: postObj,
+        successCallback: function(status) {
+          console.log(status)
       }});
     }
   });
 
   button.addEventListener('click', function() {
-    var ajax = liteAjax('POST', `${apiURI}/beerTracker/api/addBeer`);
-    var postObj = JSON.stringify({
-      name: document.getElementById('beerName').value,
-      rating: document.getElementById('beerRating').value
-    });
+    const beerName = document.getElementById('beerName').value;
+    const beerRating = document.getElementById('beerRating').value;
 
-    ajax({
-      postObj: postObj,
-      successCallback: function(data) {
-        console.log(data);
-      }
-    });
+    if (beerName) {
+      const ajax = liteAjax('POST', `${apiURI}/beerTracker/api/addBeer`);
+      const postObj = JSON.stringify({
+        name: beerName,
+        rating: beerRating
+      });
+
+      ajax({
+        postObj: postObj,
+        successCallback: function(data) {
+          console.log(data);
+        }
+      });
+    } else {
+      alert('Please enter a beer name!');
+    }
+
+
   });
 
   function getBeerList() {
@@ -44,12 +67,18 @@
     var frag = document.createDocumentFragment();
 
     beers.forEach(function(beer) {
-      var text = `${beer.name} <br> Rating: ${beer.rating} <a class="removeBeer">Remove</a>`
-      var liEl = document.createElement('li');
+      var html = `<a class="remove-beer"><i class="fa fa-close"></i></a>
+                  <input type="text" value="${beer.name}" class="tracked-beer-name" /> <br>
+                  <span class="fa-stack">
+                    <i class="fa fa-star fa-stack-2x"></i>
+                    <strong class="fa-stack-1x rating-text">${beer.rating}</strong>
+                  </span>
+                  <a class="update-beer btn btn-primary">Update</a>`
+      var divEl = document.createElement('div');
 
-      liEl.innerHTML = text;
-      liEl.id = beer._id;
-      frag.append(liEl);
+      divEl.innerHTML = html;
+      divEl.id = beer._id;
+      frag.append(divEl);
     })
 
     document.getElementById('beerList').append(frag);

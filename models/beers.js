@@ -25,8 +25,17 @@ var deleteBeer = function(objectId, cb) {
     });
 }
 
+var updateBeer = function(objectId, updateObj) {
+    db.mynewcollection.update({ '_id': db.ObjectId(objectId) }, {$set: updateObj}, function(err, result) {
+        if (err) {
+            console.log(err); return;
+        }
+    });
+}
+
 module.exports = {
     getAll: getAllBeers,
     add: addBeer,
-    delete: deleteBeer
+    delete: deleteBeer,
+    update: updateBeer
 };
