@@ -1,5 +1,5 @@
 (function() {
-  var button = document.getElementById('addBeerButton');
+  var addButton = document.getElementById('addBeerButton');
   var beerList = document.getElementById('beerList');
   //todo: find out where to put these transformable env variables
   var apiURI = 'https://shielded-coast-63607.herokuapp.com';
@@ -7,11 +7,11 @@
 
   document.addEventListener('DOMContentLoaded', getBeerList);
   beerList.addEventListener('click', function(evt) {
-    console.log(evt);
     if (evt.target.className.indexOf('fa-close') > -1) {
-      const ajax = liteAjax('DELETE', `${apiURI}/beerTracker/api/deleteBeer/${evt.target.parentNode.parentNode.id}`);
+      const idNode = evt.target.parentNode.parentNode;
+      const ajax = liteAjax('DELETE', `${apiURI}/beerTracker/api/deleteBeer/${idNode.id}`);
       ajax({successCallback: function(status) {
-        console.log(status)
+        idNode.remove();
       }});
     } else if (evt.target.className.indexOf('update-beer') > -1) {
       const ajax = liteAjax('PUT', `${apiURI}/beerTracker/api/updateBeer/${evt.target.parentNode.id}`);
@@ -23,12 +23,12 @@
       ajax({
         postObj: postObj,
         successCallback: function(status) {
-          console.log(status)
+          alert('Success!');
       }});
     }
   });
 
-  button.addEventListener('click', function() {
+  addButton.addEventListener('click', function() {
     const beerName = document.getElementById('beerName').value;
     const beerRating = document.getElementById('beerRating').value;
 
@@ -42,7 +42,13 @@
       ajax({
         postObj: postObj,
         successCallback: function(data) {
-          console.log(data);
+          let beer = JSON.parse(data);
+          const template = buildBeerCard(beer);
+          let divEl = document.createElement('div');
+
+          divEl.innerHTML = template;
+          divEl.id = beer._id;
+          document.getElementById('beerList').append(divEl);
         }
       });
     } else {
@@ -67,13 +73,7 @@
     var frag = document.createDocumentFragment();
 
     beers.forEach(function(beer) {
-      var html = `<a class="remove-beer"><i class="fa fa-close"></i></a>
-                  <input type="text" value="${beer.name}" class="tracked-beer-name" /> <br>
-                  <span class="fa-stack">
-                    <i class="fa fa-star fa-stack-2x"></i>
-                    <strong class="fa-stack-1x rating-text">${beer.rating}</strong>
-                  </span>
-                  <a class="update-beer btn btn-primary">Update</a>`
+      var html = buildBeerCard(beer);
       var divEl = document.createElement('div');
 
       divEl.innerHTML = html;
@@ -85,6 +85,18 @@
   }
 
   //helpers
+  function buildBeerCard(beer) {
+    var html = `<a class="remove-beer"><i class="fa fa-close"></i></a>
+                <input type="text" value="${beer.name}" class="tracked-beer-name" /> <br>
+                <span class="fa-stack">
+                  <i class="fa fa-star fa-stack-2x"></i>
+                  <strong class="fa-stack-1x rating-text">${beer.rating}</strong>
+                </span>
+                <a class="update-beer btn btn-primary">Update</a>`;
+
+    return html;
+  }
+
   function liteAjax(type, url) {
     var xhr = new XMLHttpRequest();
     xhr.open(type, url);
