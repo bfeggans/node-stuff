@@ -2,8 +2,8 @@
   var addButton = document.getElementById('addBeerButton');
   var beerList = document.getElementById('beerList');
   //todo: find out where to put these transformable env variables
-  // var apiURI = 'https://shielded-coast-63607.herokuapp.com';
-  var apiURI = 'http://localhost:5000';
+  var apiURI = 'https://shielded-coast-63607.herokuapp.com';
+  // var apiURI = 'http://localhost:5000';
 
   const getBeerList = () => {
     const ajax = liteAjax('GET', `${apiURI}/beerTracker/api/getBeers`);
