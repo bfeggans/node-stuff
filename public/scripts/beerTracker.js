@@ -32,7 +32,8 @@
   };
 
   const ratingChangeHandler = (evt) => {
-    if (evt.target.className === 'tracked-beer-rating') {
+    if (evt.target.className === 'tracked-beer-rating')
+    {
       const newRating = evt.target.value;
 
       evt.target.previousSibling.childNodes[1].textContent = newRating;
@@ -41,25 +42,28 @@
   };
 
   const beerListEventHandler = (evt) => {
-    if (evt.target.className.indexOf('fa-close') > -1) {
+    if (evt.target.className.indexOf('fa-close') > -1)
+    {
       const idNode = evt.target.parentNode.parentNode;
       const ajax = liteAjax('DELETE', `${apiURI}/beerTracker/api/deleteBeer/${idNode.id}`);
-      ajax({successCallback: function(status) {
-        idNode.remove();
-      }});
-    } else if (evt.target.className.indexOf('update-beer') > -1) {
+
+      ajax({
+        successCallback: (status) => {
+          idNode.remove();
+        }
+      });
+    }
+    else if (evt.target.className.indexOf('update-beer') > -1)
+    {
       const ajax = liteAjax('PUT', `${apiURI}/beerTracker/api/updateBeer/${evt.target.parentNode.id}`);
       const beerName = evt.target.parentNode.getElementsByTagName('input')[0].value;
       const beerRating = evt.target.previousSibling.childNodes[1].textContent;
-      const postObj = JSON.stringify({
-        name: beerName,
-        rating: beerRating
-      });
+      const postObj = JSON.stringify({ name: beerName, rating: beerRating });
 
       ajax({
         postObj: postObj,
         successCallback: (status) => {
-          alert('Success!');
+          console.log(status);
       }});
     }
   };
@@ -68,7 +72,8 @@
     const beerName = document.getElementById('beerName').value;
     const beerRating = document.getElementById('beerRating').value;
 
-    if (beerName) {
+    if (beerName)
+    {
       const ajax = liteAjax('POST', `${apiURI}/beerTracker/api/addBeer`);
       const postObj = JSON.stringify({
         name: beerName,
@@ -87,16 +92,21 @@
           document.getElementById('beerList').append(divEl);
         }
       });
-    } else {
+    }
+    else
+    {
       alert('Please enter a beer name!');
     }
   };
 
   const ratingSelectElementToggler = (evt) => {
     if (evt.target.parentNode.className
-        && evt.target.parentNode.className.indexOf('tracked-beer-rating-btn') > -1) {
+        && evt.target.parentNode.className.indexOf('tracked-beer-rating-btn') > -1)
+    {
       evt.target.parentNode.nextSibling.style = '';
-    } else {
+    }
+    else
+    {
       const selects = document.getElementsByTagName('select');
 
       Array.prototype.forEach.call(selects, (element) => {
