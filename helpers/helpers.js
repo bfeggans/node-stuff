@@ -1,4 +1,4 @@
-function deepFlatten(obj, returnObj) {
+const deepFlatten => (obj, returnObj) {
   for (let prop in obj)
 	{
 		if (typeof obj[prop] === 'object') {

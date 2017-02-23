@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var beers = require('../models/beers');
+const express = require('express');
+const router = express.Router();
+const beers = require('../models/beers');
 
 router.use('/beerTracker', require('./beerController'));
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
   res.render('pages/home.ejs');
 })
 

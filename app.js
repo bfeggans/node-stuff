@@ -1,12 +1,12 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
 app.set('port', (process.env.PORT || 5000));
 app.set('view engine', 'ejs');
 
 app.use('/assets', express.static(__dirname + '/public'));
 app.use(require('./controllers'));
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     console.log(req.path);
     next();
 });

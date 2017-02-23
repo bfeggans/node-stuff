@@ -1,9 +1,9 @@
-var mongojs = require('mongojs');
-var constants = require('./constants');
-var db = mongojs(constants.dbURI, ['mynewcollection']);
+const mongojs = require('mongojs');
+const constants = require('./constants');
+const db = mongojs(constants.dbURI, ['mynewcollection']);
 
-var getAllBeers = function(cb) {
-    db.mynewcollection.find({}, function(err, result){
+const getAllBeers = (cb) => {
+    db.mynewcollection.find({}, (err, result) => {
         if (err) {
             console.log(err); return;
         }
@@ -11,13 +11,13 @@ var getAllBeers = function(cb) {
     });
 }
 
-var addBeer = function(newBeer, cb) {
+const addBeer = (newBeer, cb) => {
     console.log(newBeer);
     db.mynewcollection.insert(newBeer);
 }
 
-var deleteBeer = function(objectId, cb) {
-    db.mynewcollection.remove({ '_id' : db.ObjectId(objectId) }, function(err, result) {
+const deleteBeer = (objectId, cb) => {
+    db.mynewcollection.remove({ '_id' : db.ObjectId(objectId) }, (err, result) => {
         if (err) {
             console.log(err); return;
         }
@@ -25,8 +25,8 @@ var deleteBeer = function(objectId, cb) {
     });
 }
 
-var updateBeer = function(objectId, updateObj) {
-    db.mynewcollection.update({ '_id': db.ObjectId(objectId) }, {$set: updateObj}, function(err, result) {
+const updateBeer = (objectId, updateObj) => {
+    db.mynewcollection.update({ '_id': db.ObjectId(objectId) }, {$set: updateObj}, (err, result) => {
         if (err) {
             console.log(err); return;
         }

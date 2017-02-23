@@ -1,42 +1,42 @@
-var express = require('express');
-var router = express.Router();
-var beers = require('../models/beers');
-var bodyParser = require('body-parser');
+const express = require('express');
+const router = express.Router();
+const beers = require('../models/beers');
+const bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
     res.render('pages/beertracker');
 });
 
-router.post('/api/addBeer', function(req, res) {
-    var newBeer = req.body;
+router.post('/api/addBeer', (req, res) => {
+    const newBeer = req.body;
     beers.add(newBeer);
 
     res.writeHead(200);
     res.end(JSON.stringify(newBeer));
 });
 
-router.get('/api/getBeers', function(req, res) {
-    var beerList = beers.getAll(function(data) {
+router.get('/api/getBeers', (req, res) => {
+    const beerList = beers.getAll((data) => {
         res.json(data);
     });
 
     return beerList;
 });
 
-router.delete('/api/deleteBeer/:id', function(req, res) {
-    var objectId = req.params.id;
+router.delete('/api/deleteBeer/:id', (req, res) => {
+    const objectId = req.params.id;
 
-    var returnValue = beers.delete(objectId, function() {
+    const returnValue = beers.delete(objectId, () => {
         res.json(true);
     });
 });
 
-router.put('/api/updateBeer/:id', function(req, res) {
-  var updatedBeer = req.body;
-  var objectId = req.params.id;
+router.put('/api/updateBeer/:id', (req, res) => {
+  const updatedBeer = req.body;
+  const objectId = req.params.id;
 
   beers.update(objectId, updatedBeer);
 
