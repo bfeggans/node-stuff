@@ -46,6 +46,7 @@ a.remove-beer {
 }
 
 .update-beer {
+  cursor: pointer;
   margin-left: 10px;
 }
 

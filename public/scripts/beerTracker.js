@@ -1,7 +1,7 @@
 (() => {
   var addButton = document.getElementById('addBeerButton');
   var beerList = document.getElementById('beerList');
-  //todo: find out where to put these transformable env variables
+  //TODO: find out where to put these transformable env variables
   var apiURI = 'https://shielded-coast-63607.herokuapp.com';
   // var apiURI = 'http://localhost:5000';
 
@@ -137,7 +137,7 @@
                     <option value="4">4</option>
                     <option value="5">5</option>
                   </select>
-                </div><a class="update-beer btn btn-primary">Update</a>`;
+                </div><a class="update-beer">Update</a>`;
 
     return html;
   };
