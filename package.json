@@ -13,6 +13,8 @@
     "body-parser": "^1.16.1",
     "ejs": "2.4.1",
     "express": "4.13.3",
+    "express-graphql": "^0.6.3",
+    "graphql": "^0.9.1",
     "mongojs": "^2.4.0"
   },
   "keywords": [

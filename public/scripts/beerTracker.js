@@ -6,9 +6,18 @@
   // var apiURI = 'http://localhost:5000';
 
   const getBeerList = () => {
-    const ajax = liteAjax('GET', `${apiURI}/beerTracker/api/getBeers`);
+    const ajax = liteAjax('POST', `${apiURI}/graphql/beers`);
 
     ajax({
+      postObj: JSON.stringify({
+        query: `{
+          beers {
+            _id
+            name
+            rating
+          }
+        }`
+      }),
       successCallback: (data) => {
         renderBeers(data);
       }
@@ -16,7 +25,7 @@
   };
 
   const renderBeers = (responseString) => {
-    const beers = JSON.parse(responseString);
+    const beers = JSON.parse(responseString).data.beers;
     const frag = document.createDocumentFragment();
 
     beers.forEach((beer) => {
