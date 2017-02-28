@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Blake's Node playground",
   "engines": {
-    "node": "5.9.1"
+    "node": "6.10.0"
   },
   "main": "app.js",
   "scripts": {

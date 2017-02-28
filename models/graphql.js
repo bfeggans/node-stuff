@@ -36,8 +36,6 @@ var beerQueryType = new graphql.GraphQLObjectType({
   }
 })
 
-//TODO: double check on the "RootQueryType" - think it is used exclusively
-//by the GraphiQL UI.
 const beerSchema = new graphql.GraphQLSchema({ query: beerQueryType });
 
 module.exports = {
